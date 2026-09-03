@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- The Glyph Matrix SDK declares minSdk 33, but it is only ever invoked on Phone (3)
+         (Android 15+). Allow the merge so the app keeps minSdk 29 for every other device,
+         where the Glyph controller is a safe no-op and the SDK classes are never touched. -->
+    <uses-sdk tools:overrideLibrary="com.nothing.thirdparty" />
+
+    <!-- Observe the currently-playing media session (any media app) to drive
+         analytics and device integrations. No internet permission is declared:
+         this app never sends data off-device. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Universal edge-lighting overlay. Optional; feature gated behind a toggle. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- Optional camera-flash notifications. Feature-gated + graceful fallback. -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <!-- Nothing Glyph Matrix (Phone 3). Harmless on non-Nothing devices; feature-gated. -->
+    <uses-permission android:name="com.nothing.ketchum.permission.ENABLE" />
+
+    <application
+        android:name=".RvxApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.RvxCompanion"
+        tools:targetApi="34">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.RvxCompanion">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Reads active MediaController state via MediaSessionManager. The
+             BIND_NOTIFICATION_LISTENER_SERVICE permission is granted by the user
+             in system settings (Notification access). -->
+        <service
+            android:name=".media.MediaObserverService"
+            android:exported="false"
+            android:label="@string/media_access_label"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- Foreground overlay engine for universal edge-lighting. -->
+        <service
+            android:name=".edge.EdgeLightingService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Playback-synced ambient edge lighting overlay" />
+        </service>
+    </application>
+</manifest>
