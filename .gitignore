@@ -1,0 +1,24 @@
+# Built and downloaded APK packages (>100MB exceeds GitHub hard limit)
+*.apk
+*.apkm
+*.zip
+
+# Build directories and temporary files
+**/build/
+**/temp/
+**/bin/tmp.*
+*.temporary-files
+build.md
+
+# Toolchain and local environments
+.toolchain/
+local.properties
+.gradle/
+.kotlin/
+.idea/
+*.iml
+.DS_Store
+
+# Java / Smali bytecode artifacts
+*.class
+*.dex
