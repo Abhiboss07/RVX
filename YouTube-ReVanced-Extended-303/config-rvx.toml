@@ -1,0 +1,19 @@
+enable-magisk-update = false
+parallel-jobs = 1
+remove-rv-integrations-checks = false
+
+cli-source = "MorpheApp/morphe-cli"
+cli-version = "latest"
+
+[YouTube-Extended]
+app-name = "YouTube"
+pkg-name = "com.google.android.youtube"
+rv-brand = "ReVanced Extended"
+build-mode = "apk"
+version = "20.51.39"
+patches-source = "anddea/revanced-patches"
+patches-version = "v4.2.0-dev.7"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+uptodown-dlurl = "https://youtube.en.uptodown.com/android"
+archive-dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.youtube"
+excluded-patches = "'Custom branding icon for YouTube' 'Custom branding name for YouTube' 'Custom header for YouTube'"
