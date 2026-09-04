@@ -48,18 +48,9 @@
     invoke-virtual {p0, v1}, Landroid/view/View;->setEnabled(Z)V
 
     :cond_d
-    invoke-virtual {p0}, Landroid/view/View;->isClickable()Z
-
-    move-result v0
-
-    if-nez v0, :cond_16
-
-    invoke-virtual {p0, v1}, Landroid/view/View;->setClickable(Z)V
-
-    :cond_16
     instance-of v0, p0, Landroid/view/ViewGroup;
 
-    if-eqz v0, :cond_30
+    if-eqz v0, :cond_2b
 
     check-cast p0, Landroid/view/ViewGroup;
 
@@ -69,8 +60,8 @@
 
     const/4 v1, 0x0
 
-    :goto_21
-    if-ge v1, v0, :cond_30
+    :goto_1c
+    if-ge v1, v0, :cond_2b
 
     invoke-virtual {p0, v1}, Landroid/view/ViewGroup;->getChildAt(I)Landroid/view/View;
 
@@ -80,9 +71,9 @@
 
     add-int/lit8 v1, v1, 0x1
 
-    goto :goto_21
+    goto :goto_1c
 
-    :cond_30
+    :cond_2b
     return-void
 .end method
 
@@ -90,8 +81,6 @@
     .registers 6
 
     :try_start_0
-    invoke-static {p0}, Lapp/morphe/extension/youtube/patches/video/AdvancedVideoQualityMenuPatch;->unblockViews(Landroid/view/View;)V
-
     sget-boolean v0, Lapp/morphe/extension/youtube/patches/video/AdvancedVideoQualityMenuPatch;->ADVANCED_VIDEO_QUALITY_MENU:Z
 
     if-nez v0, :cond_a
@@ -386,6 +375,13 @@
     return-void
 
     :cond_3
+    sget-boolean v0, Lapp/morphe/extension/youtube/patches/video/AdvancedVideoQualityMenuPatch;->ADVANCED_VIDEO_QUALITY_MENU:Z
+
+    if-nez v0, :cond_8
+
+    return-void
+
+    :cond_8
     invoke-virtual {p0}, Landroid/view/View;->getViewTreeObserver()Landroid/view/ViewTreeObserver;
 
     move-result-object v0
